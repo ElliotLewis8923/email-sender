@@ -1,0 +1,17 @@
+.form-control {
+  height: 42px;
+}
+
+.form-control#content {
+  height: 90px;
+}
+
+.btn.btn-primary {
+  width: 30%;
+}
+
+#form {
+  margin: auto;
+  width: 500px;
+  height: 800px;
+}

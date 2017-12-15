@@ -1,0 +1,9 @@
+{
+  "presets": [
+		["@babel/preset-env", {
+			"shippedProposals": true
+		}],
+		"@babel/react"
+  ],
+  "ignore": ["node_modules", "build"]
+}
