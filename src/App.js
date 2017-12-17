@@ -10,6 +10,9 @@ class App extends Component {
   render() {
     return (
       <div id="form">
+        <div className="page-header">
+          <h1>Email Sender</h1>
+        </div>
         <EmailForm />
       </div>
     )

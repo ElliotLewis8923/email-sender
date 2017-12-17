@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import classnames from 'classnames'
 
 import Input from './Input'
 import Tagger from './Tagger'
@@ -16,7 +17,8 @@ class EmailForm extends Component {
         subject: '',
         body: ''
       },
-      validations: {}
+      validations: {},
+      response: { message: null, success: null }
     }
 
     this.updateValue = this.updateValue.bind(this)
@@ -46,14 +48,24 @@ class EmailForm extends Component {
     if(!subject) msgs.subject = 'The email must have a subject'
     if(!body) msgs.body = 'The email must have a body'
     if(Object.keys(msgs).length > 0) return this.setState({ validations: msgs })
-    const res = await axios.post('/api/send-email', this.state.values)
+    try {
+      await axios.post('/api/send-email', this.state.values)
+      this.setState({ response: { message: 'Email sent!', success: true } })
+    } catch(e) {
+      this.setState({ response: { message: 'Error!', success: false } })
+    }
 
   }
 
   render() {
-    const { values, validations } = this.state
+    const { values, validations, response: { message, success } } = this.state
     return (
       <form className="form-horizontal">
+        {message && (
+        <div className={classnames('alert', { 'alert-success': success }, { 'alert-danger': !success })}>
+          <strong>{message}</strong>
+        </div>
+        )}
         <Tagger onChange={tags => this.updateValue(tags, 'to')} value={values.to} id="to" label="To*" error={validations.to} />
         <Tagger onChange={tags => this.updateValue(tags, 'cc')} value={values.cc} id="cc" label="CC" error={validations.cc} />
         <Tagger onChange={tags => this.updateValue(tags, 'bcc')} value={values.bcc} id="bcc" label="BCC" error={validations.bcc} />
