@@ -2,6 +2,7 @@ const express = require('express')
 const path = require("path")
 const app = express()
 const api = require('./api')
+const sendEmail = require('./util/sendEmail')
 
 require('dotenv').config()
 
@@ -13,11 +14,16 @@ app.use('/', express.static(`${__dirname}/../build`, { index: 'index.html' }))
 app.post('/api/send-email', async (req, res, next) => {
 	const data = req.body
 	try {
+    await api.sendgrid(data)
+    return res.sendStatus(200)
+  } catch(e) {
+    console.log('Sendgrid request error. Fall back to mailgun')
+	}
+	try {
 		await api.mailgun(data)
 		return res.sendStatus(200)
 	} catch(e) {
-		const status = e.response.status
-		if (status == 400) return res.sendStatus(status)
+		return res.sendStatus(e.response.status)
 	}
 })
 
