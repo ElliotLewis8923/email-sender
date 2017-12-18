@@ -11,7 +11,7 @@ module.exports = {
     }
 
     if (cc.length) data.cc = cc.join(', ')
-    if (bcc.length) data.cc = bcc.join(', ') 
+    if (bcc.length) data.bcc = bcc.join(', ') 
     return querystring.stringify(data)
   },
 
