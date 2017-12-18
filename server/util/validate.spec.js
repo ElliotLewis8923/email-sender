@@ -1,5 +1,4 @@
 const assert = require('assert')
-const sinon = require('sinon')
 const querystring = require('querystring')
 const validate = require('./validate')
 
