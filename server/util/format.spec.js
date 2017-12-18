@@ -7,15 +7,6 @@ const format = require('./format')
 
 describe('format Sendgrid', () => {
 
-  const data = { 
-    to: ['abc@xyz.com'], 
-    body: 'some content', 
-    bcc: ['foo@bar.com'], 
-    cc: ['one@two.com'],
-    subject: 'a subject',
-    body: 'a body'
-  }
-
 	it('should remove CC and BCC fields if not present', () => {
     const data = { 
       to: ['abc@xyz.com'], 

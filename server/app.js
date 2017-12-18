@@ -12,6 +12,9 @@ app.use('/', express.static(`${__dirname}/../build`, { index: 'index.html' }))
 
 app.post('/api/send-email', async (req, res, next) => {
 	const data = req.body
+	if (!validate(data)) {
+		return res.sendStatus(400)
+	}
 	try {
     await api.sendgrid(data)
     return res.sendStatus(200)
