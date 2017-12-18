@@ -34,3 +34,8 @@ Go to localhost:3000
 
 Enter the details, click send and your email will be sent!
 
+## TODO
+
+* Frontend tests
+* More complete error handling
+* Tidy up React code
